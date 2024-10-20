@@ -26,7 +26,7 @@ This paper uses OpenFOAM’s `chtMultiRegionFoam` solver for conjugate heat tran
 
 ## Author
 
-- **Name**: Maryam Almaian
+- **Name**: Maryam Almaian (@maryamalmaian)
 - **Institution**: Georgia Institute of Technology, School of Architecture
 - **Program**: M.S. ARCH (High Performance Building)
 - **Advisor**: Dr. Patrick Kastner
