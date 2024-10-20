@@ -1,0 +1,101 @@
+% -------------------------------------------------------------------
+% Different font in captions
+% from http://dcwww.camp.dtu.dk/~schiotz/comp/LatexTips/LatexTips.html
+\newcommand{\captionfonts}{\it}
+\makeatletter  % Allow the use of @ in command names
+\long\def\@makecaption#1#2{%
+  \vskip\abovecaptionskip
+  \sbox\@tempboxa{{\captionfonts #1: #2}}%
+  \ifdim \wd\@tempboxa >\hsize
+    {\captionfonts #1: #2\par}
+  \else
+    \hbox to\hsize{\hfil\box\@tempboxa\hfil}%
+  \fi
+  \vskip\belowcaptionskip}
+\makeatother   % Cancel the effect of \makeatletter
+% -------------------------------------------------------------------
+
+% Fuzz -------------------------------------------------------------------
+\hfuzz4pt % Don't bother to report over-full boxes if over-edge is < 2pt
+\vfuzz=\hfuzz
+% THEOREM Environments ---------------------------------------------------
+\newtheorem{definition}{Definition}
+\newtheorem{assumption}{Assumption}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{corollary}{Corollary}
+\newtheorem{proposition}{Proposition}
+\newtheorem{algorithm}[theorem]{Algorithm}
+\newcommand{\rbox}{ \qed }
+
+\renewcommand{\Re}{{\mathbb R}}
+\newcommand{\Na}{{\mathbb N}}
+\newcommand{\Z}{{\mathbb Z}}
+
+% Depth of table of contents -----------------------------------------
+\setcounter{tocdepth}{2}
+
+%QED box, from the TeXbook, p. 106. ----------------------------------
+\newcommand\qed{{\unskip\nobreak\hfil\penalty50\hskip2em\vadjust{}
+    \nobreak\hfil$\Box$\parfillskip=0pt\finalhyphendemerits=0\par}}
+    
+    
+% Line spacing -----------------------------------------------------------
+\newlength{\defbaselineskip}
+\setlength{\defbaselineskip}{\baselineskip}
+\newcommand{\setlinespacing}[1]%
+           {\setlength{\baselineskip}{#1 \defbaselineskip}}
+\newcommand{\doublespacing}{\setlength{\baselineskip}
+                           {2.0 \defbaselineskip}}
+\newcommand{\singlespacing}{\setlength{\baselineskip}{\defbaselineskip}}
+\newcommand{\onehalfspacing}{\setlength{\baselineskip}
+                           {1.5 \defbaselineskip}}
+
+\hyphenation{TRNSYS}
+
+
+% -------------------------------------------------------------------------
+% Section headings
+% p. 27
+ \makeatletter
+ \renewcommand{\section}{\@startsection
+   {section}%            %the name
+   {0}%                  %the level
+   {0mm}%                %the indent
+   {6pt}%               %the beforeskip
+   {3pt}%                %the afterskip
+   {\noindent \fontsize{12}{14}\selectfont \textbf}} %the style
+%   {\noindent \large \sc \underline}}  %the style
+
+ \renewcommand{\subsection}{\@startsection
+   {subsection}%            %the name
+   {1}%                  %the level
+   {0mm}%              t  %the indent
+   {6pt}%               %the beforeskip
+   {3pt}%                %the afterskip
+  {\noindent \fontsize{10}{12}\selectfont \bf}}  %the style
+%   {\noindent \bf}}  %the style
+ \makeatother
+
+
+\newcommand{\authorfont}{\fontsize{12}{14}\selectfont}
+\newcommand{\titlefont}{\fontsize{12}{14}\selectfont \bf}
+
+
+% PDF Links --------------------------------------------------------
+ \usepackage[ps2pdf,colorlinks]{hyperref}
+  \hypersetup{backref, %
+    colorlinks=true, %
+    linkcolor=black, %
+    anchorcolor=black, %
+    citecolor=black, %
+    filecolor=black, % Color for URLs which open local files.
+    menucolor=black, % Color for Acrobat menu items.
+    pagecolor=black, % Color for links to other pages.
+    urlcolor=black, %
+    pdftitle={}, %
+    pdfauthor={}, %
+    pdfsubject={}, %
+    pdfkeywords={}%
+  }
+ \usepackage[]{cleveref}
