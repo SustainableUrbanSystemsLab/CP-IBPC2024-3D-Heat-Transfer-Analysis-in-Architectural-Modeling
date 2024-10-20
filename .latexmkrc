@@ -1,35 +1,20 @@
-# Specify the main files
-@default_files = ('paper.tex','paper_blind.tex','sub_graphical_abstract.tex','sub_highlights.tex','sub_paper.tex','sub_paper_blind.tex');
-
-$pdflatex = 'pdflatex %O -interaction=nonstopmode -shell-escape %S';
-
-# Specify the bibliography
-$bibtex = 'bibtex %O %B';
-$makeglossaries = 'makeglossaries %O %B';
-
-# Continuous preview mode
-$continuous_mode = 1;
-
-# Output to PDF
+# Ensure pdflatex is used
 $pdf_mode = 1;
 
-# Keep auxiliary files
-$clean_ext = "";
+# Add custom rule for nomenclature
+add_cus_dep('nlo', 'nls', 0, 'makenlo2nls');
 
-add_cus_dep( 'acn', 'acr', 0, 'makeglossaries' );
-add_cus_dep( 'glo', 'gls', 0, 'makeglossaries' );
-$clean_ext .= " acr acn alg glo gls glg";
-
-sub makeglossaries {
-	my ($base_name, $path) = fileparse( $_[0] );
-	my @args = ( "-q", "-d", $path, $base_name );
-	if ($silent) { unshift @args, "-q"; }
-	return system "makeglossaries", "-d", $path, $base_name; 
+# Define the command to generate the nomenclature file for 2024Template.tex
+sub makenlo2nls {
+    system("makeindex 2024Template.nlo -s nomencl.ist -o 2024Template.nls");
 }
 
+# Ensure we run pdflatex enough times to resolve cross-references, citations, etc.
+$pvc_view_file_via_temporary = 0;
 
-# Silence warnings
-$silent = 1;
+# Set the number of runs to ensure cross-referencing is handled
+$max_repeat = 5;
 
-
-
+# Automatically clean up auxiliary files after a successful compilation
+# (optional, you can uncomment this if you prefer cleaning after every build)
+# $clean_ext = 'nls nlo';
